@@ -32,7 +32,7 @@ selected_symptoms = st.multiselect(
 
 if st.button("Predict Disease"):
     if len(selected_symptoms) == 0:
-        st.warning("⚠ Please select at least one symptom.")
+        st.warning(" Please select at least one symptom.")
     else:
         selected_symptoms = [s.replace(" ", "_") for s in selected_symptoms]
 
@@ -50,46 +50,47 @@ if st.button("Predict Disease"):
                 predicted_disease = row["prognosis"]
 
         if predicted_disease is None or max_match == 0:
-            st.error("❌ No disease found for the selected symptoms.")
+            st.error(" No disease found for the selected symptoms.")
         else:
-            disease = predicted_disease   # ✅ FIX HERE
+            disease = predicted_disease   #FIX HERE
 
-            st.success(f"✅ Predicted Disease: **{disease}**")
+            st.success(f"Predicted Disease: **{disease}**")
             st.info(f"Matched Symptoms: {max_match} / {len(selected_symptoms)}")
 
             # -------- Description --------
             desc = desc_df[desc_df["Disease"] == disease]["Description"]
             if not desc.empty:
-                st.subheader("📌 Description")
+                st.subheader("Description")
                 st.write(desc.values[0])
 
             # -------- Diet --------
             diet = diets_df[diets_df["Disease"] == disease]["Diet"]
             if not diet.empty:
-                st.subheader("🥗 Recommended Diet")
+                st.subheader("Recommended Diet")
                 st.write(diet.values[0])
 
             # -------- Workout --------
             workout = workout_df[workout_df["disease"] == disease]["workout"]
             if not workout.empty:
-                st.subheader("🏃 Recommended Workout")
+                st.subheader(" Recommended Workout")
                 st.write(workout.values[0])
 
             # -------- Medication --------
             meds = meds_df[meds_df["Disease"] == disease]["Medication"]
             if not meds.empty:
-                st.subheader("💊 Medications")
+                st.subheader(" Medications")
                 st.write(meds.values[0])
 
             # -------- Precautions --------
             prec_row = prec_df[prec_df["Disease"] == disease]
 
             if not prec_row.empty:
-                st.subheader("⚠ Precautions")
+                st.subheader(" Precautions")
                 precautions = prec_row[
                     ["Precaution_1", "Precaution_2", "Precaution_3", "Precaution_4"]
                 ].values[0]
 
                 for p in precautions:
                     st.write("•", p)
+
 
